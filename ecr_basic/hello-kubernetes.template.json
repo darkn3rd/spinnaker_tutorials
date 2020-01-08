@@ -1,0 +1,96 @@
+{
+  "keepWaitingPipelines": false,
+  "lastModifiedBy": "anonymous",
+  "limitConcurrent": true,
+  "name": "my-pipeline",
+  "application": "my-app",
+  "stages": [
+    {
+      "account": "default",
+      "cloudProvider": "kubernetes",
+      "manifests": [
+        {
+          "apiVersion": "v1",
+          "kind": "Service",
+          "metadata": {
+            "name": "hello-kubernetes"
+          },
+          "spec": {
+            "ports": [
+              {
+                "port": 80,
+                "targetPort": 8080
+              }
+            ],
+            "selector": {
+              "app": "hello-kubernetes"
+            },
+            "type": "LoadBalancer"
+          }
+        },
+        {
+          "apiVersion": "apps/v1",
+          "kind": "Deployment",
+          "metadata": {
+            "name": "hello-kubernetes"
+          },
+          "spec": {
+            "replicas": 3,
+            "selector": {
+              "matchLabels": {
+                "app": "hello-kubernetes"
+              }
+            },
+            "template": {
+              "metadata": {
+                "labels": {
+                  "app": "hello-kubernetes"
+                }
+              },
+              "spec": {
+                "containers": [
+                  {
+                    "image": "ACCOUNT.dkr.ecr.REGION.amazonaws.com/hello-kubernetes:${trigger['tag']}",
+                    "name": "hello-kubernetes",
+                    "ports": [
+                      {
+                        "containerPort": 8080
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ],
+      "moniker": {
+        "app": "my-app"
+      },
+      "name": "Deploy (Manifest)",
+      "refId": "1",
+      "requisiteStageRefIds": [],
+      "skipExpressionEvaluation": false,
+      "source": "text",
+      "trafficManagement": {
+        "enabled": false,
+        "options": {
+          "enableTraffic": false,
+          "services": []
+        }
+      },
+      "type": "deployManifest"
+    }
+  ],
+  "triggers": [
+    {
+      "account": "ECR_REGISTRY_NAME",
+      "enabled": true,
+      "registry": "ACCOUNT.dkr.ecr.REGION.amazonaws.com",
+      "repository": "hello-kubernetes",
+      "tag": "v[0-9]\\.[0-9]",
+      "type": "docker"
+    }
+  ],
+  "updateTs": "1578331071000"
+}

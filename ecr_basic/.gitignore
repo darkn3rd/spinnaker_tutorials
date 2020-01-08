@@ -1,0 +1,12 @@
+env.sh
+
+# spinnaker tutorial related
+spinnaker.values.yaml
+hello-kubernetes.json
+
+# git repositories
+hello-kubernetes/*
+
+# terraform module eks-basic
+kubeconfig_*
+config-map-aws-auth_*
