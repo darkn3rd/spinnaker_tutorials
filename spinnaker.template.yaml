@@ -1,0 +1,22 @@
+halyard:
+  additionalConfigMaps:
+    create: true
+    data:
+      hal_config.src: |-
+        AWS_ACCOUNT=REPLACE_ACCOUNT
+        AWS_REGION=REPLACE_REGION
+  additionalScripts:
+    create: true
+    data:
+      hal_config.sh: |
+        # source env vars set in configmap
+        source /opt/halyard/additionalConfigMaps/hal_config.src
+        ECR_ADDRESS=${AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com
+
+        # config ecr provider
+        ${HAL_COMMAND} config provider docker-registry account add ECR_REGISTRY_NAME  \
+          --address ${ECR_ADDRESS} \
+          --username AWS \
+          --password-command "aws --region ${AWS_REGION} ecr get-authorization-token --output text --query 'authorizationData[].authorizationToken' | base64 -d | sed 's/^AWS://'"
+
+        ${HAL_COMMAND} config provider docker-registry enable
