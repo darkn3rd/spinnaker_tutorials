@@ -2,6 +2,7 @@
 
 # retrieve earlier variables
 source ./env.sh
+cd $PROJECT_HOME
 
 # install helm chart
 helm3 repo add stable https://kubernetes-charts.storage.googleapis.com/

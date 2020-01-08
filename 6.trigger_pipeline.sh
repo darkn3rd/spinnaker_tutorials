@@ -2,7 +2,6 @@
 
 # retrieve earlier variables
 source ./env.sh
-
 cd ${PROJECT_HOME}/hello-kubernetes
 
 # make code changes

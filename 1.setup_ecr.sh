@@ -2,6 +2,7 @@
 
 # retrieve earlier variables
 source ./env.sh
+cd $PROJECT_HOME
 
 # create ECR repository
 aws ecr create-repository --repository-name hello-kubernetes

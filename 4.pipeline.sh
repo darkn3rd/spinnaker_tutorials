@@ -2,6 +2,7 @@
 
 # retrieve earlier variables
 source ./env.sh
+cd $PROJECT_HOME
 
 spin application save \
   --application-name my-app \

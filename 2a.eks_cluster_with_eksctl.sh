@@ -2,8 +2,9 @@
 
 # retrieve earlier variables
 source ./env.sh
+cd $PROJECT_HOME
 
-export TIMESTAMP=$(date +%s)
+TIMESTAMP=$(date +%s)
 export CLUSTER_NAME=attractive-sculpture-${TIMESTAMP}
 # save CLUSTER_NAME env var for later use
 echo "CLUSTER_NAME=$CLUSTER_NAME" >> env.sh

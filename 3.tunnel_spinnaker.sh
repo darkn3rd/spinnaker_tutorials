@@ -2,6 +2,7 @@
 
 # retrieve earlier variables
 source ./env.sh
+cd $PROJECT_HOME
 
 # identify and target first pod/gate in cluster
 export DECK_POD=$(kubectl get pods \

@@ -2,6 +2,7 @@
 
 # retrieve earlier variables
 source ./env.sh
+cd $PROJECT_HOME
 
 MY_REGION=$(aws configure get region \
   --profile ${AWS_PROFILE:-"default"}
